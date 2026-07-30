@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grain &amp; Form — Contemporary Furniture</title>
+<meta name="description" content="Grain & Form is a contemporary furniture studio crafting considered pieces for living, dining, and rest.">
+
+<!-- Google Fonts: Fraunces (display) + Inter (body/UI) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================
+     DESIGN TOKENS
+     ============================================ */
+  :root{
+    --cream:      #F6F2E9;   /* primary background */
+    --cream-2:    #EFE9DC;   /* secondary background / cards */
+    --stone:      #DED4BF;   /* borders / dividers */
+    --charcoal:   #26221D;   /* primary text */
+    --charcoal-70:rgba(38,34,29,0.7);
+    --charcoal-45:rgba(38,34,29,0.45);
+    --walnut:     #8B5A3C;   /* primary accent — wood tone */
+    --walnut-dark:#6E4429;
+    --sage:       #6B7259;   /* secondary accent */
+    --white:      #FFFFFF;
+
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Inter', sans-serif;
+
+    --container: 1240px;
+    --radius-sm: 2px;
+    --radius-md: 4px;
+
+    --ease: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+
+  body{
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; text-decoration: none; }
+  button{ font-family: inherit; cursor:pointer; border:none; background:none; }
+  ul{ list-style:none; }
+
+  .container{
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--walnut);
+    outline-offset: 3px;
+  }
+
+  .eyebrow{
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--walnut);
+  }
+
+  h1,h2,h3{
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border-radius: var(--radius-sm);
+    transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease), transform .25s var(--ease);
+    white-space: nowrap;
+  }
+  .btn-primary{
+    background: var(--charcoal);
+    color: var(--cream);
+  }
+  .btn-primary:hover{ background: var(--walnut); transform: translateY(-2px); }
+  .btn-outline{
+    background: transparent;
+    color: var(--charcoal);
+    border: 1px solid var(--charcoal);
+  }
+  .btn-outline:hover{ background: var(--charcoal); color: var(--cream); }
+  .btn-outline.light{ color:var(--cream); border-color: rgba(246,242,233,0.5); }
+  .btn-outline.light:hover{ background: var(--cream); color: var(--charcoal); }
+  .btn-sm{ padding: 11px 20px; font-size: 12px; }
+
+  /* ============================================
+     NAVIGATION
+     ============================================ */
+  .nav{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index: 100;
+    background: rgba(246,242,233,0);
+    border-bottom: 1px solid transparent;
+    transition: background .4s var(--ease), border-color .4s var(--ease), padding .4s var(--ease);
+    padding: 26px 0;
+  }
+  .nav.scrolled{
+    background: rgba(246,242,233,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom-color: var(--stone);
+    padding: 16px 0;
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+  }
+  .logo{
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    display:flex;
+    align-items:baseline;
+    gap: 6px;
+  }
+  .logo span{ color: var(--walnut); font-style: italic; }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap: 40px;
+  }
+  .nav-links a{
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:0;
+    width:0; height:1px;
+    background: var(--walnut);
+    transition: width .3s var(--ease);
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-right{ display:flex; align-items:center; gap:28px; }
+  .nav-cta{ display:inline-flex; }
+
+  .hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    width:26px;
+    z-index: 200;
+  }
+  .hamburger span{
+    display:block; height:1.5px; width:100%;
+    background: var(--charcoal);
+    transition: transform .3s var(--ease), opacity .3s var(--ease);
+  }
+  .hamburger.open span:nth-child(1){ transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2){ opacity:0; }
+  .hamburger.open span:nth-child(3){ transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-menu{
+    position: fixed;
+    inset: 0;
+    background: var(--cream);
+    z-index: 90;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap: 28px;
+    padding: 0 40px;
+    transform: translateY(-100%);
+    transition: transform .5s var(--ease);
+  }
+  .mobile-menu.open{ transform: translateY(0); }
+  .mobile-menu a{
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 400;
+  }
+
+  /* ============================================
+     HERO
+     ============================================ */
+  .hero{
+    position: relative;
+    min-height: 100vh;
+    display:flex;
+    align-items: flex-end;
+    padding-bottom: 90px;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background-image: url('https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=1800&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center 65%;
+    transform: scale(1.08);
+    animation: heroZoom 18s ease-out forwards;
+  }
+  @keyframes heroZoom{ to{ transform: scale(1); } }
+  .hero-scrim{
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(38,34,29,0.32) 0%, rgba(38,34,29,0.18) 40%, rgba(38,34,29,0.78) 100%);
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    width:100%;
+    color: var(--cream);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1fr auto;
+    align-items: flex-end;
+    gap: 40px;
+  }
+  .hero-eyebrow{
+    color: #E8D9C6;
+    font-size:12px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
+    margin-bottom: 22px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .hero-eyebrow::before{ content:''; width:32px; height:1px; background: #E8D9C6; }
+  .hero h1{
+    font-size: clamp(44px, 7vw, 92px);
+    max-width: 820px;
+    color: var(--white);
+  }
+  .hero h1 em{ font-style: italic; color: #E4C9A8; font-weight:400; }
+  .hero-sub{
+    max-width: 420px;
+    font-size: 16px;
+    color: rgba(246,242,233,0.82);
+    margin-top: 22px;
+    line-height: 1.6;
+  }
+  .hero-actions{
+    display:flex; align-items:center; gap:18px;
+    margin-top: 38px;
+  }
+  .hero-side{
+    text-align:right;
+    display:flex; flex-direction:column; align-items:flex-end; gap:10px;
+    padding-bottom: 6px;
+  }
+  .hero-side .num{ font-family: var(--font-display); font-size:15px; color: rgba(246,242,233,0.6); }
+
+  .scroll-cue{
+    position:absolute;
+    right: 32px;
+    bottom: 28px;
+    z-index:2;
+    writing-mode: vertical-rl;
+    color: rgba(246,242,233,0.7);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display:flex; align-items:center; gap:12px;
+  }
+  .scroll-cue::after{
+    content:'';
+    width:1px; height:44px;
+    background: rgba(246,242,233,0.5);
+    animation: scrollLine 2.2s ease-in-out infinite;
+    transform-origin: top;
+  }
+  @keyframes scrollLine{ 0%{transform:scaleY(0);} 50%{transform:scaleY(1);} 100%{transform:scaleY(0); transform-origin:bottom;} }
+
+  @media (max-width: 720px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-side{ display:none; }
+    .scroll-cue{ display:none; }
+  }
+
+  /* ============================================
+     SECTION HEADERS (shared)
+     ============================================ */
+  section{ position: relative; }
+  .section-pad{ padding: 130px 0; }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap: 40px;
+    margin-bottom: 64px;
+  }
+  .section-head h2{
+    font-size: clamp(32px, 4vw, 50px);
+    margin-top: 14px;
+  }
+  .section-head p{
+    max-width: 360px;
+    color: var(--charcoal-70);
+    font-size: 15px;
+    line-height: 1.7;
+    padding-bottom: 6px;
+  }
+
+  .reveal{ opacity:0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.in{ opacity:1; transform: translateY(0); }
+
+  /* ============================================
+     GALLERY / FILTERS
+     ============================================ */
+  .gallery{ background: var(--cream); }
+
+  .filters{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 56px;
+  }
+  .filter-btn{
+    padding: 10px 22px;
+    border: 1px solid var(--stone);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--charcoal-70);
+    background: transparent;
+    transition: all .3s var(--ease);
+    display:flex; align-items:center; gap:9px;
+  }
+  .filter-btn .swatch{
+    width:9px; height:9px; border-radius:50%;
+    background: var(--stone);
+    transition: background .3s var(--ease);
+  }
+  .filter-btn:hover{ border-color: var(--walnut); color: var(--charcoal); }
+  .filter-btn.active{
+    background: var(--charcoal);
+    border-color: var(--charcoal);
+    color: var(--cream);
+  }
+  .filter-btn.active .swatch{ background: var(--walnut); }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 34px 28px;
+  }
+  @media (max-width: 980px){ .grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 620px){ .grid{ grid-template-columns: 1fr; } }
+
+  .card{
+    display:flex;
+    flex-direction:column;
+    transition: opacity .5s var(--ease), transform .5s var(--ease);
+  }
+  .card.hidden-item{
+    display:none;
+  }
+  .card-media{
+    position:relative;
+    overflow:hidden;
+    aspect-ratio: 4/5;
+    background: var(--cream-2);
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+  }
+  .card-media img{
+    width:100%; height:100%; object-fit:cover;
+    transition: transform .7s var(--ease);
+  }
+  .card:hover .card-media img{ transform: scale(1.06); }
+  .card-no{
+    position:absolute;
+    top:16px; left:16px;
+    background: rgba(246,242,233,0.92);
+    color: var(--charcoal);
+    font-family: var(--font-display);
+    font-size: 12px;
+    padding: 5px 11px;
+    border-radius: 100px;
+    letter-spacing: 0.03em;
+  }
+  .card-cat{
+    position:absolute;
+    bottom:16px; left:16px;
+    color: var(--cream);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+  }
+  .card-body{ flex:1; display:flex; flex-direction:column; }
+  .card-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap: 10px; margin-bottom:8px;
+  }
+  .card h3{ font-size: 21px; font-weight: 500; }
+  .card-price{ font-size:13px; color: var(--charcoal-45); white-space:nowrap; padding-top:4px; }
+  .card-desc{
+    font-size: 14px;
+    color: var(--charcoal-70);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .card-meta{
+    font-size: 12px;
+    color: var(--charcoal-45);
+    padding-top: 12px;
+    border-top: 1px solid var(--stone);
+    margin-bottom: 18px;
+    line-height: 1.7;
+  }
+  .card-meta strong{ color: var(--charcoal-70); font-weight: 600; }
+  .card-actions{ margin-top:auto; }
+  .inquire-btn{
+    width:100%;
+    padding: 12px 0;
+    border: 1px solid var(--charcoal);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all .3s var(--ease);
+  }
+  .inquire-btn:hover{ background: var(--walnut); border-color: var(--walnut); color: var(--white); }
+
+  /* ============================================
+     ABOUT / CRAFTSMANSHIP
+     ============================================ */
+  .about{ background: var(--charcoal); color: var(--cream); }
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items:center;
+  }
+  .about-media{
+    position: relative;
+    aspect-ratio: 1/1.05;
+    border-radius: var(--radius-md);
+    overflow:hidden;
+  }
+  .about-media img{ width:100%; height:100%; object-fit:cover; }
+  .about-media-tag{
+    position:absolute; bottom:24px; left:24px;
+    background: rgba(38,34,29,0.85);
+    backdrop-filter: blur(6px);
+    padding: 16px 20px;
+    border-radius: var(--radius-sm);
+    max-width: 220px;
+  }
+  .about-media-tag .num{ font-family: var(--font-display); font-size: 26px; color: var(--walnut-dark); background: var(--cream); display:inline-block; padding:2px 8px; border-radius:2px; margin-bottom:8px; }
+  .about-media-tag p{ font-size: 12px; color: rgba(246,242,233,0.75); line-height:1.5; }
+
+  .about-eyebrow{ color:#C79968; }
+  .about h2{
+    font-size: clamp(30px, 3.6vw, 46px);
+    margin: 16px 0 26px;
+    color: var(--white);
+  }
+  .about > .about-grid > div:last-child > p.lead{
+    font-size: 17px;
+    line-height: 1.75;
+    color: rgba(246,242,233,0.82);
+    margin-bottom: 42px;
+    max-width: 460px;
+  }
+  .pillars{ display:flex; flex-direction:column; gap: 0; }
+  .pillar{
+    display:grid;
+    grid-template-columns: 50px 1fr;
+    gap: 20px;
+    padding: 22px 0;
+    border-top: 1px solid rgba(246,242,233,0.14);
+  }
+  .pillar:last-child{ border-bottom: 1px solid rgba(246,242,233,0.14); }
+  .pillar .num{ font-family: var(--font-display); font-style:italic; color: #C79968; font-size:18px; }
+  .pillar h4{ font-family: var(--font-body); font-size:15px; font-weight:600; margin-bottom:6px; letter-spacing:0.01em; }
+  .pillar p{ font-size: 13.5px; color: rgba(246,242,233,0.62); line-height:1.6; }
+
+  @media (max-width: 860px){
+    .about-grid{ grid-template-columns:1fr; gap:48px; }
+  }
+
+  /* ============================================
+     CONTACT
+     ============================================ */
+  .contact{ background: var(--cream-2); }
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+  }
+  .contact-info h2{ font-size: clamp(30px,3.6vw,46px); margin: 14px 0 20px; }
+  .contact-info > p.lead{ color: var(--charcoal-70); font-size:15.5px; line-height:1.7; max-width:420px; margin-bottom: 40px; }
+
+  .info-list{ display:flex; flex-direction:column; gap: 26px; margin-bottom: 40px; }
+  .info-row{ display:flex; gap:18px; align-items:flex-start; }
+  .info-icon{
+    width:44px; height:44px; flex-shrink:0;
+    border-radius:50%;
+    background: var(--cream);
+    border: 1px solid var(--stone);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .info-icon svg{ width:18px; height:18px; stroke: var(--walnut); }
+  .info-row h4{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; font-weight:600; color: var(--charcoal-45); margin-bottom:4px; }
+  .info-row p{ font-size:15.5px; font-weight:500; }
+  .info-row a:hover{ color: var(--walnut); }
+
+  .quick-actions{ display:flex; flex-wrap:wrap; gap:14px; }
+
+  .map-box{
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow:hidden;
+    min-height: 460px;
+    background:
+      linear-gradient(rgba(38,34,29,0.03), rgba(38,34,29,0.03)),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(38,34,29,0.08) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(38,34,29,0.08) 40px),
+      var(--cream);
+    border: 1px solid var(--stone);
+  }
+  .map-pin{
+    position:absolute; top:50%; left:50%;
+    transform: translate(-50%,-50%);
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .map-pin-dot{
+    width:20px; height:20px; border-radius:50%;
+    background: var(--walnut);
+    border: 4px solid var(--cream);
+    box-shadow: 0 3px 10px rgba(38,34,29,0.3);
+    position:relative;
+  }
+  .map-pin-dot::after{
+    content:'';
+    position:absolute; inset:-14px;
+    border-radius:50%;
+    border: 1px solid rgba(139,90,60,0.4);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse{ 0%{ transform:scale(0.6); opacity:1;} 100%{ transform:scale(2.2); opacity:0;} }
+  .map-card{
+    position:absolute; bottom:20px; left:20px; right:20px;
+    background: rgba(246,242,233,0.95);
+    backdrop-filter: blur(6px);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    display:flex; justify-content:space-between; align-items:center; gap:14px;
+    border: 1px solid var(--stone);
+  }
+  .map-card p{ font-size:13px; font-weight:600; }
+  .map-card span{ font-size:12px; color: var(--charcoal-45); display:block; margin-top:2px; }
+
+  @media (max-width: 860px){
+    .contact-grid{ grid-template-columns:1fr; }
+    .map-box{ min-height: 320px; order:-1; }
+  }
+
+  /* Message form (used by Inquire) */
+  .msg-note{
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--walnut);
+    display:none;
+    align-items:center;
+    gap:8px;
+  }
+  .msg-note.show{ display:flex; }
+  textarea.contact-textarea{
+    width:100%;
+    margin-top: 18px;
+    padding: 14px 16px;
+    background: var(--cream);
+    border: 1px solid var(--stone);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    color: var(--charcoal);
+    min-height: 70px;
+    resize: vertical;
+    transition: border-color .3s var(--ease);
+  }
+  textarea.contact-textarea:focus{ border-color: var(--walnut); }
+
+  /* ============================================
+     FOOTER
+     ============================================ */
+  .site-footer{
+    background: var(--charcoal);
+    color: rgba(246,242,233,0.55);
+    padding: 44px 0;
+    border-top: 1px solid rgba(246,242,233,0.1);
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 13px;
+  }
+  .footer-inner .logo{ color: var(--cream); font-size:17px; }
+  .footer-links{ display:flex; gap:26px; }
+  .footer-links a:hover{ color: var(--cream); }
+
+  /* Toast */
+  .toast{
+    position: fixed;
+    bottom: 28px; left:50%;
+    transform: translate(-50%, 20px);
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 14px 24px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 300;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .35s var(--ease), transform .35s var(--ease);
+    display:flex; align-items:center; gap:10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+  .toast.show{ opacity:1; transform: translate(-50%, 0); pointer-events:auto; }
+  .toast::before{ content:'✓'; color: var(--walnut); font-weight:700; }
+
+  /* ============================================
+     RESPONSIVE NAV
+     ============================================ */
+  @media (max-width: 900px){
+    .nav-links, .nav-right .btn{ display:none; }
+    .hamburger{ display:flex; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     NAVIGATION
+     ============================================ -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="logo">Grain <span>&amp;</span> Form</a>
+
+    <ul class="nav-links">
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#craft">Craft</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="tel:+18005551234" class="btn btn-primary btn-sm">Call Now</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#gallery" class="mm-link">Gallery</a>
+  <a href="#craft" class="mm-link">Craft</a>
+  <a href="#contact" class="mm-link">Contact</a>
+  <a href="tel:+18005551234" class="btn btn-primary" style="margin-top:16px;">Call Now</a>
+</div>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-scrim"></div>
+
+  <div class="container hero-content">
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow">Contemporary furniture studio</p>
+        <h1>Furniture, <em>considered.</em></h1>
+        <p class="hero-sub">Handcrafted pieces built from solid wood and honest materials — designed for spaces you'll live in for decades, not seasons.</p>
+        <div class="hero-actions">
+          <a href="#gallery" class="btn btn-primary">Explore Collection</a>
+          <a href="#contact" class="btn btn-outline light">Visit Showroom</a>
+        </div>
+      </div>
+      <div class="hero-side">
+        <span class="num">No. 001 — 024</span>
+        <span class="num">Est. Kerala</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">Scroll</div>
+</header>
+
+<!-- ============================================
+     GALLERY
+     ============================================ -->
+<section class="gallery section-pad" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">The collection</p>
+        <h2>Pieces made<br>to be lived with.</h2>
+      </div>
+      <p>Every item in the studio is numbered and limited to small production runs — filter by room to browse the current catalogue.</p>
+    </div>
+
+    <div class="filters reveal">
+      <button class="filter-btn active" data-filter="all"><span class="swatch"></span>All Pieces</button>
+      <button class="filter-btn" data-filter="living"><span class="swatch"></span>Living Room</button>
+      <button class="filter-btn" data-filter="bedroom"><span class="swatch"></span>Bedroom</button>
+      <button class="filter-btn" data-filter="dining"><span class="swatch"></span>Dining</button>
+      <button class="filter-btn" data-filter="lighting"><span class="swatch"></span>Lighting</button>
+    </div>
+
+    <div class="grid" id="productGrid">
+
+      <!-- Card 1 -->
+      <article class="card reveal" data-category="living">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=900&auto=format&fit=crop" alt="Mira lounge chair upholstered in boucle fabric with walnut legs" loading="lazy">
+          <span class="card-no">No. 04</span>
+          <span class="card-cat">Living Room</span>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Mira Lounge Chair</h3>
+            <span class="card-price">On request</span>
+          </div>
+          <p class="card-desc">A low, generous silhouette in bouclé, built for long afternoons and slow conversation.</p>
+          <p class="card-meta"><strong>Materials:</strong> Solid walnut frame, bouclé wool blend<br><strong>Dimensions:</strong> 78 × 84 × 72 cm</p>
+          <div class="card-actions">
+            <button class="inquire-btn" data-product="Mira Lounge Chair">Inquire</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card reveal" data-category="dining">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=900&auto=format&fit=crop" alt="Solid oak dining table with rounded edges" loading="lazy">
+          <span class="card-no">No. 07</span>
+          <span class="card-cat">Dining</span>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Ombra Dining Table</h3>
+            <span class="card-price">On request</span>
+          </div>
+          <p class="card-desc">Quarter-sawn oak with softened edges, seats six comfortably without crowding the room.</p>
+          <p class="card-meta"><strong>Materials:</strong> Solid quarter-sawn oak<br><strong>Dimensions:</strong> 220 × 95 × 74 cm</p>
+          <div class="card-actions">
+            <button class="inquire-btn" data-product="Ombra Dining Table">Inquire</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card reveal" data-category="bedroom">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=900&auto=format&fit=crop" alt="Minimalist upholstered bed frame in linen" loading="lazy">
+          <span class="card-no">No. 11</span>
+          <span class="card-cat">Bedroom</span>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Solace Bed Frame</h3>
+            <span class="card-price">On request</span>
+          </div>
+          <p class="card-desc">A low platform bed with a deep, channel-tufted headboard in undyed linen.</p>
+          <p class="card-meta"><strong>Materials:</strong> Ash frame, linen upholstery<br><strong>Dimensions:</strong> Queen · 160 × 210 × 100 cm</p>
+          <div class="card-actions">
+            <button class="inquire-btn" data-product="Solace Bed Frame">Inquire</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card reveal" data-category="lighting">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1675162113547-c0849481c710?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZ1cm5pdHVyZSUyMGxpZ2h0aW5nfGVufDB8fDB8fHww" alt="Sculptural ceramic table lamp with linen shade" loading="lazy">
+          <span class="card-no">No. 13</span>
+          <span class="card-cat">Lighting</span>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Fenn Table Lamp</h3>
+            <span class="card-price">On request</span>
+          </div>
+          <p class="card-desc">A hand-thrown ceramic base paired with a hand-pleated linen shade, cast in warm light.</p>
+          <p class="card-meta"><strong>Materials:</strong> Stoneware, linen shade<br><strong>Dimensions:</strong> 28 × 28 × 48 cm</p>
+          <div class="card-actions">
+            <button class="inquire-btn" data-product="Fenn Table Lamp">Inquire</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card reveal" data-category="living">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=900&auto=format&fit=crop" alt="Three-seat sofa in warm terracotta bouclé" loading="lazy">
+          <span class="card-no">No. 02</span>
+          <span class="card-cat">Living Room</span>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Halden Sofa</h3>
+            <span class="card-price">On request</span>
+          </div>
+          <p class="card-desc">Deep seating and a relaxed back cushion, upholstered by hand in a durable wool weave.</p>
+          <p class="card-meta"><strong>Materials:</strong> Beechwood frame, wool weave<br><strong>Dimensions:</strong> 216 × 92 × 78 cm</p>
+          <div class="card-actions">
+            <button class="inquire-btn" data-product="Halden Sofa">Inquire</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="card reveal" data-category="dining">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=900&auto=format&fit=crop" alt="Set of woven cane dining chairs" loading="lazy">
+          <span class="card-no">No. 08</span>
+          <span class="card-cat">Dining</span>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Reed Dining Chair</h3>
+            <span class="card-price">On request</span>
+          </div>
+          <p class="card-desc">A hand-woven cane back on a solid beech frame — sold individually or in sets of four.</p>
+          <p class="card-meta"><strong>Materials:</strong> Solid beech, natural cane<br><strong>Dimensions:</strong> 46 × 54 × 82 cm</p>
+          <div class="card-actions">
+            <button class="inquire-btn" data-product="Reed Dining Chair">Inquire</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="card reveal" data-category="bedroom">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=900&auto=format&fit=crop" alt="Walnut bedside table with brass detail" loading="lazy">
+          <span class="card-no">No. 12</span>
+          <span class="card-cat">Bedroom</span>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Anders Nightstand</h3>
+            <span class="card-price">On request</span>
+          </div>
+          <p class="card-desc">A compact two-drawer nightstand in walnut with a hand-finished brass pull.</p>
+          <p class="card-meta"><strong>Materials:</strong> Solid walnut, brass<br><strong>Dimensions:</strong> 48 × 40 × 55 cm</p>
+          <div class="card-actions">
+            <button class="inquire-btn" data-product="Anders Nightstand">Inquire</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="card reveal" data-category="lighting">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?q=80&w=900&auto=format&fit=crop" alt="Arched floor lamp with brass stem" loading="lazy">
+          <span class="card-no">No. 15</span>
+          <span class="card-cat">Lighting</span>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Torv Floor Lamp</h3>
+            <span class="card-price">On request</span>
+          </div>
+          <p class="card-desc">A slender arched stem in brushed brass with a hand-blown opal glass diffuser.</p>
+          <p class="card-meta"><strong>Materials:</strong> Brushed brass, opal glass<br><strong>Dimensions:</strong> 40 × 40 × 165 cm</p>
+          <div class="card-actions">
+            <button class="inquire-btn" data-product="Torv Floor Lamp">Inquire</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 9 -->
+      <article class="card reveal" data-category="living">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1554295405-abb8fd54f153?q=80&w=900&auto=format&fit=crop" alt="Low walnut coffee table with sculptural legs" loading="lazy">
+          <span class="card-no">No. 05</span>
+          <span class="card-cat">Living Room</span>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <h3>Bruk Coffee Table</h3>
+            <span class="card-price">On request</span>
+          </div>
+          <p class="card-desc">A sculptural, low-slung silhouette in solid walnut with hand-carved tapered legs.</p>
+          <p class="card-meta"><strong>Materials:</strong> Solid walnut<br><strong>Dimensions:</strong> 120 × 60 × 36 cm</p>
+          <div class="card-actions">
+            <button class="inquire-btn" data-product="Bruk Coffee Table">Inquire</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     ABOUT / CRAFTSMANSHIP
+     ============================================ -->
+<section class="about section-pad" id="craft">
+  <div class="container about-grid">
+    <div class="about-media reveal">
+      <img src="https://images.unsplash.com/photo-1611486212557-88be5ff6f941?q=80&w=1000&auto=format&fit=crop" alt="Craftsperson hand-sanding a solid wood chair frame in the workshop">
+      <div class="about-media-tag">
+        <span class="num">18</span>
+        <p>Years spent refining a single joinery method before it entered production.</p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="eyebrow about-eyebrow">Craftsmanship</p>
+      <h2>Slow furniture,<br>built to outlast trends.</h2>
+      <p class="lead">Every piece begins as a sketch, not a spreadsheet. We work in solid timber and natural fibers, joined by hand using techniques chosen for strength rather than speed — so what you bring home is built to be repaired, not replaced.</p>
+
+      <div class="pillars">
+        <div class="pillar">
+          <span class="num">01</span>
+          <div>
+            <h4>Solid materials, no shortcuts</h4>
+            <p>Solid walnut, oak, ash, and beech — never veneer over particleboard. What you see is what holds the piece together.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <span class="num">02</span>
+          <div>
+            <h4>Joinery over hardware</h4>
+            <p>Mortise-and-tenon and dovetail joints wherever the design allows, reducing reliance on glue and fasteners over time.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <span class="num">03</span>
+          <div>
+            <h4>Small-batch production</h4>
+            <p>Pieces are made in limited runs by a workshop of nine, so each one gets the attention a larger factory can't offer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CONTACT
+     ============================================ -->
+<section class="contact section-pad" id="contact">
+  <div class="container contact-grid">
+
+    <div class="contact-info reveal">
+      <p class="eyebrow">Visit the showroom</p>
+      <h2>Come sit<br>with the pieces.</h2>
+      <p class="lead">Photographs only tell half the story. Visit the showroom to feel the materials, or reach out and we'll walk you through the collection remotely.</p>
+
+      <div class="info-list">
+        <div class="info-row">
+          <span class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <div>
+            <h4>Showroom</h4>
+            <p>42 Marine Walk, Thiruvananthapuram, Kerala 695001</p>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <span class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+          </span>
+          <div>
+            <h4>Phone</h4>
+            <p><a href="tel:+18005551234">+1 (800) 555-1234</a></p>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <span class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+          </span>
+          <div>
+            <h4>Email</h4>
+            <p><a href="mailto:hello@grainandform.com">hello@grainandform.com</a></p>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <span class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </span>
+          <div>
+            <h4>Hours</h4>
+            <p>Tue – Sat, 10:00 AM – 7:00 PM · Sun 11:00 AM – 4:00 PM</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <a href="tel:+18005551234" class="btn btn-primary btn-sm">Call Us</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Marine+Walk+Thiruvananthapuram+Kerala" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Get Directions</a>
+        <a href="mailto:hello@grainandform.com" class="btn btn-outline btn-sm">Email Us</a>
+      </div>
+
+      <textarea id="contactMessage" class="contact-textarea" placeholder="Your message — tap 'Inquire' on any piece to start a note here."></textarea>
+      <div class="msg-note" id="msgNote">Selected piece added to your note above.</div>
+    </div>
+
+    <div class="map-box reveal" aria-label="Stylized showroom location map">
+      <div class="map-pin"><div class="map-pin-dot"></div></div>
+      <div class="map-card">
+        <div>
+          <p>Grain &amp; Form Showroom</p>
+          <span>42 Marine Walk, Thiruvananthapuram</span>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Marine+Walk+Thiruvananthapuram+Kerala" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Open Map</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a href="#top" class="logo">Grain &amp; Form</a>
+    <div class="footer-links">
+      <a href="#gallery">Gallery</a>
+      <a href="#craft">Craft</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p>© 2026 Grain &amp; Form Studio. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Sticky nav background on scroll ---------- */
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Mobile hamburger menu ---------- */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  function closeMenu(){
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function toggleMenu(){
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', toggleMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  /* ---------- Gallery filtering ---------- */
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('#productGrid .card');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const match = (filter === 'all' || card.dataset.category === filter);
+        card.classList.toggle('hidden-item', !match);
+      });
+    });
+  });
+
+  /* ---------- Inquire button: prefill contact note + scroll ---------- */
+  const contactMessage = document.getElementById('contactMessage');
+  const msgNote = document.getElementById('msgNote');
+  let noteTimeout;
+
+  document.querySelectorAll('.inquire-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const product = btn.dataset.product;
+      contactMessage.value = `Hi, I'd like to enquire about the ${product}. Could you share availability and pricing?`;
+
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      setTimeout(() => {
+        contactMessage.focus();
+        msgNote.classList.add('show');
+        clearTimeout(noteTimeout);
+        noteTimeout = setTimeout(() => msgNote.classList.remove('show'), 4000);
+      }, 550);
+
+      showToast(`${product} added to your note`);
+    });
+  });
+
+  /* ---------- Toast ---------- */
+  const toast = document.getElementById('toast');
+  let toastTimeout;
+  function showToast(text){
+    toast.textContent = text;
+    toast.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 2600);
+  }
+
+  /* ---------- Scroll reveal animations ---------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  /* ---------- Smooth scroll for in-page nav links (fallback) ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const id = link.getAttribute('href');
+      if (id.length > 1){
+        const target = document.querySelector(id);
+        if (target){
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
